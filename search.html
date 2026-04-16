@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+
+    <style>
+        /* Background */
+        body {
+            background: linear-gradient(to left, cyan, rgb(218, 42, 218));
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+        }
+
+        .logo {
+            font-size: 24px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: black;
+            font-weight: 600;
+            position: relative;
+        }
+
+        /* Hover underline */
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background: black;
+            left: 0;
+            bottom: -5px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Settings icon */
+        .settings {
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .settings:hover {
+            transform: rotate(20deg) scale(1.1);
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        /* Modern Search Bar */
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            padding: 10px;
+            border-radius: 20px;
+            width: 250px;
+            background: transparent;
+        }
+
+        /* Button Hover */
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background: black;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background: #333;
+        }
+
+        /* Main */
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        /* Cities */
+        .cities {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .city {
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .city:hover {
+            transform: translateY(-5px);
+        }
+
+        .city img {
+            width: 200px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <!-- ✅ Clean Navbar -->
+    <nav class="navbar">
+        <div class="logo">🌤️</div>
+
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Maps</a>
+            <a href="#">Contact</a>
+        </div>
+
+        <div class="settings">⚙️</div>
+    </nav>
+
+    <h1>Search</h1>
+
+    <!-- Search Bar -->
+    <div class="search-box">
+        <input type="search" placeholder="Search city...">
+        <button>Search</button>
+    </div>
+
+</header>
+
+<main>
+
+    <!-- Current Location -->
+    <section>
+        <h2>Your Location</h2>
+        <button>Use Current Location 📍</button>
+    </section>
+
+    <!-- Popular Cities -->
+    <section>
+        <h2>Popular Cities</h2>
+
+        <div class="cities">
+
+            <div class="city">
+                <img src="https://images.timesnownews.com/thumb/msid-151382065,thumbsize-30708,width-1280,height-720,resizemode-75/151382065.jpg" alt="Mumbai">
+                <h3>Mumbai</h3>
+                <p>32°C, Sunny</p>
+            </div>
+
+            <div class="city">
+                <img src="https://www.skymetweather.com/content/wp-content/uploads/2022/03/Delhi-Weather-FB-1.jpg" alt="Delhi">
+                <h3>Delhi</h3>
+                <p>35°C, Hot</p>
+            </div>
+
+            <div class="city">
+                <img src="https://bangaloretoday.in/wp-content/uploads/2019/06/Add-a-heading-min-980x588.jpg" alt="Bangalore">
+                <h3>Bangalore</h3>
+                <p>27°C, Cloudy</p>
+            </div>
+
+            <div class="city">
+                <img src="https://www.timeanddate.com/scripts/cityog.php?title=Weather%20in&tint=0x007b7a&city=Chennai&state=Tamil%20Nadu&country=India&image=chennai1" alt="Chennai">
+                <h3>Chennai</h3>
+                <p>34°C, Humid</p>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 Weather App. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
