@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: system-ui;
+            background: linear-gradient(to bottom, #4facfe, #00f2fe);
+            color: black;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .city {
+            font-size: 35px;
+            margin-top: 20px;
+        }
+
+        .date {
+            font-size: 18px;
+            opacity: 0.8;
+        }
+
+        .temp {
+            font-size: 70px;
+            margin: 10px 0;
+        }
+
+        .weather {
+            font-size:30px;
+        }
+
+        .message {
+            margin: 10px 0 20px;
+            font-size: 30px;
+            font-style:serif;
+            font-weight:bold;
+            color:darkblue;
+        }
+
+        /* Weather Details Box */
+        .details {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(256,256,256,0.5);
+            margin: 20px;
+            padding: 15px;
+            border-radius: 15px;
+            border:1px solid black;
+        }
+
+        .details div {
+            font-size: 16px;
+        }
+
+        /* Forecast Section */
+        .forecast {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px;
+            padding:15px;
+            background-color:rgba(258,258,258,0.2);
+            border:1px solid white;
+            border-radius:10px;
+            
+        }
+
+        .day {
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 10px;
+            width: 60px;
+            border: 1px solid black;
+            margin:5px;
+        }
+   .day:nth-child(1) {
+    background-color: lightyellow;
+    color: black;
+}
+
+.day:nth-child(2) {
+    background-color: lavender;
+    color: black;
+}
+
+.day:nth-child(3) {
+    background-color: lightgray;
+    color: black;
+}
+
+.day:nth-child(4) {
+    background-color: lightpink;
+    color: black;
+}
+
+        /* Buttons */
+        .btn {
+            display: block;
+            margin: 10px auto;
+            padding: 12px;
+            width: 200px;
+            background:ivory;
+            color: black;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+.time {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+        .btn:hover {
+            background: lightgray;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- City + Date -->
+    <div class="city">Mumbai</div>
+    <div class="date">Tuesday, April 16</div>
+    <p class="time">🕒 10:30 AM</p>
+
+    <!-- Temperature -->
+    <div class="temp">30°C</div>
+
+    <!-- Weather -->
+    <div class="weather">☀️SUNNY</div>
+    <div class="message">Stay hydrated!</div>
+
+    <!-- Weather Details -->
+    <div class="details">
+        <div>💧 Humidity<br>60%</div>
+        <div>🌬️ Wind<br>12 km/h</div>
+        <div>🌡️ Feels like<br>32°C</div>
+    </div>
+
+
+    <!-- Mini Forecast -->
+    <div class="forecast">
+        <div class="day">Mon<br>☀️<br>29°C</div>
+        <div class="day">Tue<br>🌧️<br>26°C</div>
+        <div class="day">Wed<br>☁️<br>28°C</div>
+        <div class="day">Thu<br>☀️<br>31°C</div>
+    </div>
+   
+    <a href="forecast.html" class="btn">View Full Forecast</a>
+    <a href="search.html"class="btn">Search City</a>
+
+ 
+
+</div>
+
+</body>
+</html>
