@@ -1,165 +1,656 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Weather App</title>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Weather Forecast</title>
 
     <style>
-        body {
-            margin: 0;
-            font-family: system-ui;
-            background: linear-gradient(to bottom, #4facfe, #00f2fe);
-            color: black;
-            text-align: center;
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:"Poppins",sans-serif;
         }
 
-        .container {
-            padding: 20px;
+        html{
+            scroll-behavior:smooth;
         }
 
-        .city {
-            font-size: 35px;
-            margin-top: 20px;
+        body{
+
+            min-height:100vh;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            padding:25px;
+
+            overflow-y:auto;
+
+            background:
+            linear-gradient(
+                rgba(50,181,201),
+                rgba(0,0,0,0.15)
+            ),
+
+            url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2070&auto=format&fit=crop");
+
+            background-size:cover;
+            background-position:center;
+            background-repeat:no-repeat;
         }
 
-        .date {
-            font-size: 18px;
-            opacity: 0.8;
+        /* MAIN CONTAINER */
+
+        .container{
+
+            width:92%;
+            max-width:430px;
+
+            padding:28px;
+
+            border-radius:37px;
+
+            background:
+            rgba(173,217,230,0.90);
+
+            backdrop-filter:blur(10px);
+
+            border:
+            2px solid rgba(230,255,255,0.3);
+
+            box-shadow:
+            0 10px 35px rgba(0,0,0,0.30);
+
+            text-align:center;
+
+            animation:fadeIn 1.2s ease;
         }
 
-        .temp {
-            font-size: 70px;
-            margin: 10px 0;
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+                transform:translateY(20px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
         }
 
-        .weather {
-            font-size:30px;
-        }
+        /* CITY */
 
-        .message {
-            margin: 10px 0 20px;
-            font-size: 30px;
-            font-style:serif;
+        .city{
+
+            font-size:2.8rem;
             font-weight:bold;
-            color:darkblue;
+            font-style:sans-serif;
+
+            color:#0d47a1;
+
+            text-shadow:
+            0 0 9px rgba(255,255,255,0.6);
         }
 
-        /* Weather Details Box */
-        .details {
-            display: flex;
-            justify-content: space-around;
-            background: rgba(256,256,256,0.5);
-            margin: 20px;
-            padding: 15px;
-            border-radius: 15px;
-            border:1px solid black;
+        /* DATE + TIME */
+
+        .date,
+        .time{
+
+            margin-top:8px;
+
+            font-size:1rem;
+
+            color:#1a237e;
         }
 
-        .details div {
-            font-size: 16px;
+        /* TEMPERATURE */
+
+        .temp{
+
+            margin-top:18px;
+
+            font-size:5.5rem;
+            font-weight:bold;
+
+            color:#;
+
+            text-shadow:
+            0 0 15px rgba(255,111,0,0.4);
         }
 
-        /* Forecast Section */
-        .forecast {
-            display: flex;
-            justify-content: space-around;
-            margin: 30px;
+        /* WEATHER */
+
+        .weather{
+
+            font-size:2rem;
+            font-weight:600;
+
+            color:#d97a0d;
+
+            animation:float 2s infinite ease-in-out;
+        }
+
+        @keyframes float{
+
+            0%{
+                transform:translateY(0);
+            }
+
+            50%{
+                transform:translateY(-8px);
+            }
+
+            100%{
+                transform:translateY(0);
+            }
+        }
+
+        /* MESSAGE */
+
+        .message{
+
+            margin-top:10px;
+
+            font-size:1.2rem;
+            font-weight:bold;
+
+            color:#436338;
+        }
+
+        /* DETAILS SECTION */
+
+        .details{
+
+            margin-top:25px;
+
+            display:flex;
+            justify-content:space-between;
+
+            gap:12px;
+        }
+
+        .detail-box{
+
+            flex:1;
+
+            padding:16px;
+
+            border-radius:18px;
+
+            color:white;
+
+            transition:0.3s;
+        }
+
+        .detail-box:hover{
+
+            transform:translateY(-6px);
+
+            box-shadow:
+            0 6px 15px rgba(0,0,0,0.25);
+        }
+
+        .detail-box p{
+
+            margin-top:6px;
+
+            font-size:0.9rem;
+        }
+
+        /* DIFFERENT COLORS */
+
+        .humidity{
+
+            background:
+            linear-gradient(
+                to bottom,
+                #00b3db,
+                #0083b0
+            );
+        }
+
+        .wind{
+
+            background:
+            linear-gradient(
+                to bottom,
+                #43cea2,
+                #185a9d
+            );
+        }
+
+        .feels{
+
+            background:
+            linear-gradient(
+                to bottom,
+                #ff9966,
+                #ff5e62
+            );
+        }
+
+        /* FORECAST */
+
+        .forecast{
+
+            margin-top:28px;
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(4,1fr);
+
+            gap:10px;
+        }
+
+        .day{
+
+            padding:14px 10px;
+
+            border-radius:18px;
+
+            color:white;
+
+            font-weight:600;
+
+            transition:0.3s;
+        }
+
+        .day:hover{
+
+            transform:
+            translateY(-8px)
+            scale(1.03);
+
+            box-shadow:
+            0 5px 15px rgba(0,0,0,0.25);
+        }
+
+        /* FORECAST COLORS */
+
+        .day:nth-child(1){
+
+            background:
+            linear-gradient(
+                to bottom,
+                #ffb347,
+                #ffcc33
+            );
+
+            color:#5d4037;
+        }
+
+        .day:nth-child(2){
+
+            background:
+            linear-gradient(
+                to bottom,
+                #4facfe,
+                #00f2fe
+            );
+        }
+
+        .day:nth-child(3){
+
+            background:
+            linear-gradient(
+                to bottom,
+                #757f9a,
+                #d7dde8
+            );
+
+            color:#263238;
+        }
+
+        .day:nth-child(4){
+
+            background:
+            linear-gradient(
+                to bottom,
+                #56ab2f,
+                #a8e063
+            );
+
+            color:#1b5e20;
+        }
+
+        /* BUTTONS */
+
+        .btn{
+
+            display:block;
+
+            margin-top:18px;
+
             padding:15px;
-            background-color:rgba(258,258,258,0.2);
-            border:1px solid white;
-            border-radius:10px;
-            
+
+            border-radius:16px;
+
+            text-decoration:none;
+
+            font-size:1rem;
+            font-weight:600;
+
+            color:white;
+
+            transition:0.3s;
         }
 
-        .day {
-            background: rgba(255,255,255,0.2);
-            padding: 10px;
-            border-radius: 10px;
-            width: 60px;
-            border: 1px solid black;
-            margin:5px;
+        .btn:hover{
+
+            transform:scale(1.03);
+
+            box-shadow:
+            0 6px 15px rgba(0,0,0,0.25);
         }
-   .day:nth-child(1) {
-    background-color: lightyellow;
-    color: black;
-}
 
-.day:nth-child(2) {
-    background-color: lavender;
-    color: black;
-}
+        /* BUTTON COLORS */
 
-.day:nth-child(3) {
-    background-color: lightgray;
-    color: black;
-}
+        .forecast-btn{
 
-.day:nth-child(4) {
-    background-color: lightpink;
-    color: black;
-}
-
-        /* Buttons */
-        .btn {
-            display: block;
-            margin: 10px auto;
-            padding: 12px;
-            width: 200px;
-            background:ivory;
-            color: black;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: bold;
+            background:
+            linear-gradient(
+                to right,
+                #2193b0,
+                #6dd5ed
+            );
         }
-.time {
-    font-size: 18px;
-    margin-top: 10px;
-}
 
-        .btn:hover {
-            background: lightgray;
+        .search-btn{
+
+            background:
+            linear-gradient(
+                to right,
+                #ff512f,
+                #dd2476
+            );
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:768px){
+
+            .container{
+                padding:22px;
+            }
+
+            .forecast{
+
+                grid-template-columns:
+                repeat(2,1fr);
+            }
+
+            .temp{
+                font-size:4.5rem;
+            }
+
+            .city{
+                font-size:2.3rem;
+            }
+        }
+
+        @media(max-width:480px){
+
+            body{
+                padding:12px;
+            }
+
+            .details{
+                flex-direction:column;
+            }
+
+            .forecast{
+
+                grid-template-columns:
+                repeat(2,1fr);
+            }
+
+            .temp{
+                font-size:4rem;
+            }
+
+            .weather{
+                font-size:1.6rem;
+            }
+
+            .message{
+                font-size:1rem;
+            }
         }
 
     </style>
+
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <!-- City + Date -->
-    <div class="city">Mumbai</div>
-    <div class="date">Tuesday, April 16</div>
-    <p class="time">🕒 10:30 AM</p>
+        <!-- CITY -->
 
-    <!-- Temperature -->
-    <div class="temp">30°C</div>
+        <div class="city">
+            Mumbai
+        </div>
 
-    <!-- Weather -->
-    <div class="weather">☀️SUNNY</div>
-    <div class="message">Stay hydrated!</div>
+        <!-- DATE -->
 
-    <!-- Weather Details -->
-    <div class="details">
-        <div>💧 Humidity<br>60%</div>
-        <div>🌬️ Wind<br>12 km/h</div>
-        <div>🌡️ Feels like<br>32°C</div>
+        <div class="date">
+            Saturday,May 23
+        </div>
+
+        <!-- TIME -->
+
+        <div class="time">
+            🕒 Loading...
+        </div>
+
+        <!-- TEMPERATURE -->
+
+        <div class="temp">
+            30°C
+        </div>
+
+        <!-- WEATHER -->
+
+        <div class="weather">
+            ☀️ SUNNY
+        </div>
+
+        <!-- MESSAGE -->
+
+        <div class="message">
+            Loading Message...
+        </div>
+
+        <!-- DETAILS -->
+
+        <div class="details">
+
+            <div class="detail-box humidity">
+
+                💧
+
+                <p>Humidity</p>
+
+                <b>60%</b>
+
+            </div>
+
+            <div class="detail-box wind">
+
+                🌬️
+
+                <p>Wind</p>
+
+                <b>12 km/h</b>
+
+            </div>
+
+            <div class="detail-box feels">
+
+                🌡️
+
+                <p>Feels Like</p>
+
+                <b>32°C</b>
+
+            </div>
+
+        </div>
+
+        <!-- FORECAST -->
+
+        <div class="forecast">
+
+            <div class="day">
+
+                Mon<br><br>
+
+                ☀️<br><br>
+
+                29°C
+
+            </div>
+
+            <div class="day">
+
+                Tue<br><br>
+
+                🌧️<br><br>
+
+                26°C
+
+            </div>
+
+            <div class="day">
+
+                Wed<br><br>
+
+                ☁️<br><br>
+
+                28°C
+
+            </div>
+
+            <div class="day">
+
+                Thu<br><br>
+
+                ☀️<br><br>
+
+                31°C
+
+            </div>
+
+        </div>
+
+        <!-- BUTTONS -->
+
+        <a href="forecasts_page.html"
+            class="btn forecast-btn">
+
+            View Full Forecast
+
+        </a>
+
+        <a href="search.html"
+            class="btn search-btn">
+
+            Search City
+
+        </a>
+
     </div>
 
+    <!-- JAVASCRIPT -->
 
-    <!-- Mini Forecast -->
-    <div class="forecast">
-        <div class="day">Mon<br>☀️<br>29°C</div>
-        <div class="day">Tue<br>🌧️<br>26°C</div>
-        <div class="day">Wed<br>☁️<br>28°C</div>
-        <div class="day">Thu<br>☀️<br>31°C</div>
-    </div>
-   
-    <a href="forecast.html" class="btn">View Full Forecast</a>
-    <a href="search.html"class="btn">Search City</a>
+    <script>
 
- 
+        /* LIVE CLOCK */
 
-</div>
+        function updateClock(){
+
+            const now = new Date();
+
+            let hours =
+            now.getHours();
+
+            let minutes =
+            now.getMinutes();
+
+            let seconds =
+            now.getSeconds();
+
+            let ampm =
+            hours >= 12 ? "PM" : "AM";
+
+            hours =
+            hours % 12;
+
+            hours =
+            hours ? hours : 12;
+
+            minutes =
+            minutes < 10 ?
+            "0" + minutes :
+            minutes;
+
+            seconds =
+            seconds < 10 ?
+            "0" + seconds :
+            seconds;
+
+            document.querySelector(".time")
+            .innerHTML =
+
+            `🕒 ${hours}:${minutes}:${seconds} ${ampm}`;
+        }
+
+        setInterval(updateClock,1000);
+
+        updateClock();
+
+        /* DYNAMIC MESSAGE */
+
+        const hour =
+        new Date().getHours();
+
+        let message = "";
+
+        if(hour < 12){
+
+            message =
+            "Good Morning ☀️";
+        }
+
+        else if(hour < 18){
+
+            message =
+            "Enjoy the Sunny Weather 🌤️";
+        }
+
+        else{
+
+            message =
+            "Relaxing Evening Breeze 🌙";
+        }
+
+        document.querySelector(".message")
+        .innerHTML = message;
+
+    </script>
 
 </body>
+
 </html>
