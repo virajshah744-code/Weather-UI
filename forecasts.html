@@ -1,118 +1,867 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forecast</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Weather Forecast</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
+}
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+
+    padding:25px;
+
+    background:
+        linear-gradient(
+            rgba(50,181,201,0.82),
+            rgba(0,0,0,0.18)
+        ),
+        url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2070&auto=format&fit=crop");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+}
+
+.container{
+
+    width:92%;
+    max-width:520px;
+
+    padding:28px;
+
+    border-radius:38px;
+
+    background:rgba(173,217,230,0.90);
+
+    backdrop-filter:blur(10px);
+
+    border:2px solid rgba(255,255,255,0.25);
+
+    box-shadow:0 10px 35px rgba(0,0,0,0.30);
+
+    text-align:center;
+
+    animation:fadeIn 1s ease;
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* TOP */
+
+.city{
+
+    font-size:2.7rem;
+    font-weight:800;
+
+    color:#0d47a1;
+
+    text-shadow:0 0 10px rgba(255,255,255,0.6);
+}
+
+.date{
+
+    margin-top:8px;
+
+    color:#1a237e;
+
+    font-size:1rem;
+}
+
+.weather{
+
+    margin-top:16px;
+
+    font-size:2rem;
+    font-weight:700;
+
+    color:#d97a0d;
+}
+
+.temp{
+
+    margin-top:12px;
+
+    font-size:5rem;
+    font-weight:800;
+
+    color:#e65100;
+
+    text-shadow:0 0 18px rgba(255,111,0,0.35);
+}
+
+/* DETAILS */
+
+.details{
+
+    margin-top:26px;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:14px;
+}
+
+.detail-card{
+
+    padding:18px;
+
+    border-radius:22px;
+
+    color:white;
+
+    transition:0.3s;
+}
+
+.detail-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 8px 18px rgba(0,0,0,0.22);
+}
+
+.detail-title{
+
+    margin-top:6px;
+
+    font-size:0.9rem;
+}
+
+.detail-value{
+
+    margin-top:8px;
+
+    font-size:1.3rem;
+    font-weight:700;
+}
+
+.humidity{
+    background:linear-gradient(to bottom,#00b3db,#0083b0);
+}
+
+.wind{
+    background:linear-gradient(to bottom,#43cea2,#185a9d);
+}
+
+.feels{
+    background:linear-gradient(to bottom,#ff9966,#ff5e62);
+}
+
+.condition{
+    background:linear-gradient(to bottom,#7f53ac,#647dee);
+}
+
+/* HOURLY */
+
+.section-title{
+
+    margin-top:32px;
+    margin-bottom:16px;
+
+    text-align:left;
+
+    font-size:1.25rem;
+    font-weight:700;
+
+    color:#0d47a1;
+}
+
+.hourly{
+
+    display:flex;
+
+    gap:12px;
+
+    overflow-x:auto;
+
+    padding-bottom:6px;
+
+    scrollbar-width:none;
+}
+
+.hourly::-webkit-scrollbar{
+    display:none;
+}
+
+.hour-card{
+
+    min-width:95px;
+
+    padding:16px 12px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,0.48);
+
+    transition:0.3s;
+}
+
+.hour-card:hover{
+
+    transform:translateY(-5px);
+}
+
+.hour-time{
+
+    font-size:0.9rem;
+
+    color:#1a237e;
+}
+
+.hour-icon{
+
+    margin:10px 0;
+
+    font-size:2rem;
+}
+
+.hour-temp{
+
+    font-size:1.1rem;
+    font-weight:700;
+
+    color:#e65100;
+}
+
+/* WEEK */
+
+.week{
+
+    display:flex;
+    flex-direction:column;
+
+    gap:12px;
+}
+
+.week-card{
+
+    display:flex;
+
+    justify-content:space-between;
+    align-items:center;
+
+    padding:16px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,0.48);
+
+    transition:0.3s;
+}
+
+.week-card:hover{
+
+    transform:translateY(-4px);
+}
+
+.week-left{
+
+    display:flex;
+    align-items:center;
+
+    gap:14px;
+}
+
+.week-icon{
+    font-size:1.8rem;
+}
+
+.week-day{
+
+    font-weight:700;
+
+    color:#0d47a1;
+}
+
+.week-desc{
+
+    font-size:0.85rem;
+
+    color:#1a237e;
+}
+
+.week-temp{
+
+    font-weight:700;
+
+    color:#e65100;
+}
+
+/* BUTTON */
+
+.back-btn{
+
+    display:block;
+
+    margin-top:28px;
+
+    padding:15px;
+
+    border-radius:16px;
+
+    text-decoration:none;
+
+    font-size:1rem;
+    font-weight:600;
+
+    color:white;
+
+    background:linear-gradient(
+        to right,
+        #2193b0,
+        #6dd5ed
+    );
+
+    transition:0.3s;
+}
+
+.back-btn:hover{
+
+    transform:scale(1.03);
+
+    box-shadow:0 6px 15px rgba(0,0,0,0.25);
+}
+
+/* MOBILE */
+
+@media(max-width:480px){
+
+    body{
+        padding:12px;
+    }
+
+    .container{
+        padding:20px;
+    }
+
+    .city{
+        font-size:2.1rem;
+    }
+
+    .temp{
+        font-size:4rem;
+    }
+}
+
+</style>
 </head>
+
 <body>
 
 <div class="container">
 
-    <!-- Header -->
-    <header class="header">
-        <h1>Bandra</h1>
-        <p class="subtitle">7-Day Weather Forecast</p>
-    </header>
+    <div class="city" id="cityName"></div>
 
-    <!-- Highlight Card -->
-    <section class="highlight-card">
-        <div>
-            <h2>32°C</h2>
-            <p>Sunny</p>
-        </div>
-        <img src="https://openweathermap.org/img/wn/01d@2x.png">
-    </section>
+    <div class="date" id="dateText"></div>
 
-    <!-- Hourly -->
-    <section class="hourly">
-        <h3>Hourly Forecast</h3>
+    <div class="weather" id="weatherText"></div>
 
-        <div class="hourly-scroll">
+    <div class="temp" id="tempText"></div>
 
-            <div class="hour-card active">
-                <p>Now</p>
-                <img src="https://openweathermap.org/img/wn/01d@2x.png">
-                <p>32°</p>
+    <!-- DETAILS -->
+
+    <div class="details">
+
+        <div class="detail-card humidity">
+
+            💧
+
+            <div class="detail-title">
+                Humidity
             </div>
 
-            <div class="hour-card">
-                <p>2 PM</p>
-                <img src="https://openweathermap.org/img/wn/03d@2x.png">
-                <p>33°</p>
+            <div class="detail-value" id="humidityText"></div>
+
+        </div>
+
+        <div class="detail-card wind">
+
+            🌬️
+
+            <div class="detail-title">
+                Wind
             </div>
 
-            <div class="hour-card">
-                <p>4 PM</p>
-                <img src="https://openweathermap.org/img/wn/10d@2x.png">
-                <p>30°</p>
+            <div class="detail-value" id="windText"></div>
+
+        </div>
+
+        <div class="detail-card feels">
+
+            🌡️
+
+            <div class="detail-title">
+                Feels Like
             </div>
 
-            <div class="hour-card">
-                <p>6 PM</p>
-                <img src="https://openweathermap.org/img/wn/04d@2x.png">
-                <p>29°</p>
+            <div class="detail-value" id="feelsText"></div>
+
+        </div>
+
+        <div class="detail-card condition">
+
+            ☁️
+
+            <div class="detail-title">
+                Condition
             </div>
 
-            <div class="hour-card">
-                <p>8 PM</p>
-                <img src="https://openweathermap.org/img/wn/01n@2x.png">
-                <p>27°</p>
-            </div>
+            <div class="detail-value" id="conditionText"></div>
 
         </div>
-    </section>
 
-    <!-- Weekly -->
-    <section class="weekly">
-        <h3>Next 7 Days</h3>
+    </div>
 
-        <div class="day-row">
-            <span>Monday</span>
-            <img src="https://openweathermap.org/img/wn/01d@2x.png">
-            <span>34° / 26°</span>
-        </div>
+    <!-- HOURLY -->
 
-        <div class="day-row">
-            <span>Tuesday</span>
-            <img src="https://openweathermap.org/img/wn/03d@2x.png">
-            <span>33° / 25°</span>
-        </div>
+    <div class="section-title">
+        ⏰ Hourly Forecast
+    </div>
 
-        <div class="day-row">
-            <span>Wednesday</span>
-            <img src="https://openweathermap.org/img/wn/10d@2x.png">
-            <span>30° / 24°</span>
-        </div>
+    <div class="hourly" id="hourlyContainer"></div>
 
-        <div class="day-row">
-            <span>Thursday</span>
-            <img src="https://openweathermap.org/img/wn/10d@2x.png">
-            <span>29° / 23°</span>
-        </div>
+    <!-- WEEK -->
 
-        <div class="day-row">
-            <span>Friday</span>
-            <img src="https://openweathermap.org/img/wn/04d@2x.png">
-            <span>31° / 24°</span>
-        </div>
+    <div class="section-title">
+        📅 7-Day Forecast
+    </div>
 
-        <div class="day-row">
-            <span>Saturday</span>
-            <img src="https://openweathermap.org/img/wn/01d@2x.png">
-            <span>35° / 26°</span>
-        </div>
+    <div class="week" id="weekContainer"></div>
 
-        <div class="day-row">
-            <span>Sunday</span>
-            <img src="https://openweathermap.org/img/wn/01d@2x.png">
-            <span>36° / 27°</span>
-        </div>
-
-    </section>
+    <a href="search.html" class="back-btn">
+        🔍 Back to Search
+    </a>
 
 </div>
+
+<script>
+
+/* DATABASE */
+
+const weatherDB = {
+
+  "mumbai": {
+    temp: 30,
+    feels: 32,
+    humidity: 60,
+    wind: 12,
+    weather: "Sunny",
+    emoji: "☀️"
+  },
+
+  "delhi": {
+    temp: 35,
+    feels: 38,
+    humidity: 45,
+    wind: 8,
+    weather: "Hot",
+    emoji: "🔥"
+  },
+
+  "bangalore": {
+    temp: 27,
+    feels: 28,
+    humidity: 55,
+    wind: 15,
+    weather: "Cloudy",
+    emoji: "☁️"
+  },
+
+  "chennai": {
+    temp: 34,
+    feels: 37,
+    humidity: 75,
+    wind: 10,
+    weather: "Humid",
+    emoji: "🌤️"
+  },
+
+  "kolkata": {
+    temp: 33,
+    feels: 36,
+    humidity: 70,
+    wind: 14,
+    weather: "Rainy",
+    emoji: "🌧️"
+  },
+
+  "hyderabad": {
+    temp: 36,
+    feels: 39,
+    humidity: 40,
+    wind: 9,
+    weather: "Clear",
+    emoji: "☀️"
+  },
+
+  "pune": {
+    temp: 29,
+    feels: 30,
+    humidity: 50,
+    wind: 11,
+    weather: "Pleasant",
+    emoji: "🌤️"
+  },
+
+  "jaipur": {
+    temp: 38,
+    feels: 41,
+    humidity: 30,
+    wind: 7,
+    weather: "Hot",
+    emoji: "🔥"
+  },
+
+  "ahmedabad": {
+    temp: 37,
+    feels: 40,
+    humidity: 35,
+    wind: 8,
+    weather: "Hot",
+    emoji: "🔥"
+  },
+
+  "lucknow": {
+    temp: 34,
+    feels: 37,
+    humidity: 50,
+    wind: 6,
+    weather: "Warm",
+    emoji: "☀️"
+  },
+
+  "goa": {
+    temp: 31,
+    feels: 33,
+    humidity: 65,
+    wind: 18,
+    weather: "Breezy",
+    emoji: "🌊"
+  },
+
+  "shimla": {
+    temp: 18,
+    feels: 16,
+    humidity: 60,
+    wind: 12,
+    weather: "Cool",
+    emoji: "🏔️"
+  },
+
+  "manali": {
+    temp: 15,
+    feels: 13,
+    humidity: 55,
+    wind: 10,
+    weather: "Pleasant",
+    emoji: "🏔️"
+  },
+
+  "varanasi": {
+    temp: 35,
+    feels: 38,
+    humidity: 55,
+    wind: 5,
+    weather: "Hot",
+    emoji: "☀️"
+  },
+
+  "kochi": {
+    temp: 29,
+    feels: 31,
+    humidity: 80,
+    wind: 16,
+    weather: "Rainy",
+    emoji: "🌧️"
+  },
+
+  "surat": {
+    temp: 33,
+    feels: 35,
+    humidity: 55,
+    wind: 9,
+    weather: "Warm",
+    emoji: "🌤️"
+  },
+
+  "indore": {
+    temp: 32,
+    feels: 34,
+    humidity: 45,
+    wind: 10,
+    weather: "Sunny",
+    emoji: "☀️"
+  },
+
+  "patna": {
+    temp: 34,
+    feels: 37,
+    humidity: 60,
+    wind: 7,
+    weather: "Humid",
+    emoji: "🌤️"
+  },
+
+  "bhopal": {
+    temp: 33,
+    feels: 35,
+    humidity: 42,
+    wind: 11,
+    weather: "Sunny",
+    emoji: "☀️"
+  },
+
+  "nagpur": {
+    temp: 36,
+    feels: 39,
+    humidity: 38,
+    wind: 8,
+    weather: "Hot",
+    emoji: "🔥"
+  },
+
+  "new york": {
+    temp: 22,
+    feels: 21,
+    humidity: 50,
+    wind: 20,
+    weather: "Breezy",
+    emoji: "🌤️"
+  },
+
+  "london": {
+    temp: 16,
+    feels: 14,
+    humidity: 70,
+    wind: 18,
+    weather: "Cloudy",
+    emoji: "☁️"
+  },
+
+  "tokyo": {
+    temp: 24,
+    feels: 25,
+    humidity: 60,
+    wind: 12,
+    weather: "Pleasant",
+    emoji: "🌤️"
+  },
+
+  "dubai": {
+    temp: 40,
+    feels: 44,
+    humidity: 35,
+    wind: 15,
+    weather: "Hot",
+    emoji: "🔥"
+  },
+
+  "paris": {
+    temp: 19,
+    feels: 18,
+    humidity: 55,
+    wind: 14,
+    weather: "Mild",
+    emoji: "🌤️"
+  },
+
+  "singapore": {
+    temp: 31,
+    feels: 34,
+    humidity: 80,
+    wind: 10,
+    weather: "Humid",
+    emoji: "🌧️"
+  },
+
+  "sydney": {
+    temp: 20,
+    feels: 19,
+    humidity: 50,
+    wind: 22,
+    weather: "Breezy",
+    emoji: "🌤️"
+  }
+};
+
+/* GET CITY */
+
+const params = new URLSearchParams(
+    window.location.search
+);
+
+const city = params.get("city");
+
+/* DEFAULT */
+
+const key = city
+    ? city.toLowerCase()
+    : "mumbai";
+
+const data = weatherDB[key];
+
+/* IF INVALID */
+
+if(!data){
+
+    window.location.href = "search.html";
+}
+
+/* TOP */
+
+document.getElementById("cityName").textContent =
+    city;
+
+document.getElementById("weatherText").textContent =
+    data.emoji + " " + data.weather;
+
+document.getElementById("tempText").textContent =
+    data.temp + "°C";
+
+document.getElementById("humidityText").textContent =
+    data.humidity + "%";
+
+document.getElementById("windText").textContent =
+    data.wind + " km/h";
+
+document.getElementById("feelsText").textContent =
+    data.feels + "°C";
+
+document.getElementById("conditionText").textContent =
+    data.weather;
+
+/* DATE */
+
+const now = new Date();
+
+document.getElementById("dateText").textContent =
+    now.toDateString();
+
+/* HOURLY */
+
+const hourlyContainer =
+    document.getElementById("hourlyContainer");
+
+for(let i = 0; i < 8; i++){
+
+    const hour = new Date();
+
+    hour.setHours(now.getHours() + i * 2);
+
+    const hourTemp =
+        data.temp +
+        Math.floor(Math.random() * 4 - 2);
+
+    hourlyContainer.innerHTML += `
+
+        <div class="hour-card">
+
+            <div class="hour-time">
+                ${hour.getHours()}:00
+            </div>
+
+            <div class="hour-icon">
+                ${data.emoji}
+            </div>
+
+            <div class="hour-temp">
+                ${hourTemp}°
+            </div>
+
+        </div>
+    `;
+}
+
+/* WEEK */
+
+const weekContainer =
+    document.getElementById("weekContainer");
+
+const weekDays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+];
+
+for(let i = 0; i < 7; i++){
+
+    const future = new Date();
+
+    future.setDate(now.getDate() + i);
+
+    const max =
+        data.temp +
+        Math.floor(Math.random() * 3);
+
+    const min =
+        data.temp -
+        Math.floor(Math.random() * 5);
+
+    weekContainer.innerHTML += `
+
+        <div class="week-card">
+
+            <div class="week-left">
+
+                <div class="week-icon">
+                    ${data.emoji}
+                </div>
+
+                <div>
+
+                    <div class="week-day">
+                        ${weekDays[future.getDay()]}
+                    </div>
+
+                    <div class="week-desc">
+                        ${data.weather}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="week-temp">
+                ${max}° / ${min}°
+            </div>
+
+        </div>
+    `;
+}
+
+</script>
 
 </body>
 </html>
